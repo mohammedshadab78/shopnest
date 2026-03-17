@@ -1,0 +1,185 @@
+/* style2.css - login modal and user dropdown */
+
+/* Login tabs */
+.login-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+.login-tab {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: 0.2s;
+}
+.login-tab.active {
+  background: #1e293b;
+  color: white;
+}
+.login-form {
+  display: none;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.login-form.active {
+  display: flex;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.form-group label {
+  font-weight: 500;
+  color: #334155;
+}
+.form-group input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 40px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+.form-group input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+.login-submit {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 0.5rem;
+}
+.login-submit:hover {
+  background: #2563eb;
+}
+
+/* User dropdown */
+.user-icon {
+  position: relative;
+  cursor: pointer;
+}
+.user-dropdown {
+  position: absolute;
+  top: 130%;
+  right: 0;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 0.5rem 0;
+  min-width: 120px;
+  display: none;
+  z-index: 10;
+  border: 1px solid #f1f5f9;
+}
+.user-dropdown.show {
+  display: block;
+}
+.user-dropdown a {
+  display: block;
+  padding: 0.7rem 1rem;
+  color: #1e293b;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.user-dropdown a:hover {
+  background: #f1f5f9;
+}
+
+/* Logged-in user icon */
+.user-icon.logged-in i {
+  color: #3b82f6;
+}
+/* user dropdown greeting style */
+.user-dropdown div {
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  border-bottom: 1px solid #f1f5f9;
+}
+.user-dropdown div i {
+  margin-right: 8px;
+  color: #3b82f6;
+}
+/* address items in profile */
+.address-item {
+  background: white;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.address-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.address-actions button {
+  background: #f1f5f9;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.address-actions button:hover {
+  background: #e2e8f0;
+}
+.add-address-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 40px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+/* payment options */
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: white;
+  padding: 0.8rem 1rem;
+  border-radius: 40px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.payment-option:hover {
+  background: #f8fafc;
+  border-color: #3b82f6;
+}
+.payment-option input[type="radio"] {
+  accent-color: #3b82f6;
+  width: 18px;
+  height: 18px;
+}
+
+/* contact form textarea */
+#contactMessage {
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+}

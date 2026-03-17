@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>shopnest · E commerce </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <!-- separate CSS file -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <!-- Toast container for notifications -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <header>
+    <nav class="navbar glass">
+     <div class="logo">
+  <img src="logo.png" alt="shopnest" style="height: 40px; width: auto; margin-right: 8px;">
+  <span>shopnest</span>
+</div>
+<div class="nav-links">
+  <a href="#" id="navHome">Home</a>
+  <a href="#" id="navShop">Shop</a>
+  <a href="#" id="navNew">New</a>
+  <a href="#" id="navSale">Sale</a>
+</div>
+
+<!-- ===== NEW SEARCH BAR ===== -->
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+  <i class="fas fa-search search-icon"></i>
+  <button id="clearSearch" class="clear-search" style="display: none;"><i class="fas fa-times"></i></button>
+</div>
+
+<div class="nav-icons">
+        <div class="wishlist-icon" id="wishlistIconNav">
+          <i class="far fa-heart"></i>
+          <span class="wishlist-count" id="wishlistCount">0</span>
+        </div>
+        <div class="cart-icon" id="cartIconNav">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+                <!-- User icon with login/logout state -->
+        <div class="user-icon" id="userIconContainer">
+          <i class="far fa-user" id="userIcon"></i>
+          <div class="user-dropdown" id="userDropdown">
+            <a href="#" id="logoutBtn">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+      
+
+  <main class="container">
+    <!-- dynamic main product area (gallery + info) -->
+    <div class="product-detail glass" id="productDetail">
+  <!-- Close button (cross) -->
+  <button class="product-detail-close" id="closeProductDetail" aria-label="Close">
+    <i class="fas fa-times"></i>
+  </button>
+      <div class="gallery-section" id="gallerySection">
+        <div class="main-image-wrapper">
+          <button class="gallery-arrow prev" id="galleryPrev"><i class="fas fa-chevron-left"></i></button>
+          <div class="main-image" id="mainImageContainer">
+            <img id="mainProductImage" src="" alt="product main">
+          </div>
+          <button class="gallery-arrow next" id="galleryNext"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="thumbnail-row" id="thumbnailContainer"></div>
+      </div>
+
+      <div class="product-info" id="productInfo">
+        <!-- filled by js -->
+      </div>
+    </div>
+
+    <!-- related products with filter & sort -->
+    <div class="related-header glass">
+      <h2>You might also like</h2>
+      <div class="filter-sort">
+        <div class="filter-group" id="filterButtons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="Electronics">Electronics</button>
+          <button class="filter-btn" data-filter="Clothing">Clothing</button>
+          <button class="filter-btn" data-filter="Accessories">Accessories</button>
+          <button class="filter-btn" data-filter="Footwear">Footwear</button>
+        </div>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">Sort by</option>
+          <option value="priceAsc">Price low → high</option>
+          <option value="priceDesc">Price high → low</option>
+          <option value="nameAsc">Name A → Z</option>
+          <option value="ratingDesc">Top rated</option>
+        </select>
+        <button class="clear-filters" id="clearFilters"><i class="fas fa-times"></i> Clear</button>
+      </div>
+    </div>
+
+    <!-- product grid injected here -->
+    <div class="product-grid" id="productGrid"></div>
+  </main>
+
+  <!-- Wishlist Modal -->
+  <div id="wishlistModal" class="modal">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h2>Your Wishlist <i class="fas fa-heart" style="color: #ef4444;"></i></h2>
+        <span class="close-modal" id="closeWishlistModal">&times;</span>
+      </div>
+      <div class="modal-body" id="wishlistModalBody">
+        <!-- Wishlist items injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="modal">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h2>Shopping Cart <i class="fas fa-shopping-bag"></i></h2>
+        <span class="close-modal" id="closeCartModal">&times;</span>
+      </div>
+      <div class="modal-body" id="cartModalBody">
+        <!-- Cart items injected here -->
+      </div>
+      <div class="modal-footer" id="cartModalFooter">
+        <!-- Total and checkout button -->
+      </div>
+    </div>
+  </div>
+<!-- Profile/Address Modal -->
+<div id="profileModal" class="modal">
+  <div class="modal-content glass" style="max-width: 500px;">
+    <div class="modal-header">
+      <h2>My Profile</h2>
+      <span class="close-modal" id="closeProfileModal">&times;</span>
+    </div>
+    <div class="modal-body" id="profileModalBody">
+      <!-- Address list injected via JS -->
+    </div>
+    <div class="modal-footer">
+      <button class="add-address-btn" id="addAddressBtn">+ Add Address</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Address Modal -->
+<div id="addressFormModal" class="modal">
+  <div class="modal-content glass" style="max-width: 400px;">
+    <div class="modal-header">
+      <h2 id="addressFormTitle">Add Address</h2>
+      <span class="close-modal" id="closeAddressFormModal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <form id="addressForm">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="addressName" required>
+        </div>
+        <div class="form-group">
+          <label>Address Line</label>
+          <input type="text" id="addressLine" required>
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" id="addressCity" required>
+        </div>
+        <div class="form-group">
+          <label>State</label>
+          <input type="text" id="addressState" required>
+        </div>
+        <div class="form-group">
+          <label>Pincode</label>
+          <input type="text" id="addressPincode" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="addressPhone" required>
+        </div>
+        <button type="submit" class="login-submit">Save Address</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout Address Selection Modal -->
+<div id="checkoutAddressModal" class="modal">
+  <div class="modal-content glass" style="max-width: 500px;">
+    <div class="modal-header">
+      <h2>Select Delivery Address</h2>
+      <span class="close-modal" id="closeCheckoutAddressModal">&times;</span>
+    </div>
+    <div class="modal-body" id="checkoutAddressList">
+      <!-- Addresses with radio buttons -->
+    </div>
+    <div class="modal-footer">
+      <button class="checkout-btn" id="confirmAddressBtn">Confirm & Checkout</button>
+    </div>
+  </div>
+</div>
+<!-- Payment Method Modal -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content glass" style="max-width: 400px;">
+    <div class="modal-header">
+      <h2>Select Payment Method</h2>
+      <span class="close-modal" id="closePaymentModal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="credit" checked>
+          <i class="fas fa-credit-card"></i> Credit Card
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="debit">
+          <i class="fas fa-credit-card"></i> Debit Card
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="upi">
+          <i class="fas fa-mobile-alt"></i> UPI
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="cod">
+          <i class="fas fa-truck"></i> Cash on Delivery
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="checkout-btn" id="confirmPaymentBtn">Pay Now</button>
+    </div>
+  </div>
+</div>
+<!-- About Us Modal -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content glass" style="max-width: 500px;">
+    <div class="modal-header">
+      <h2>About Us</h2>
+      <span class="close-modal" id="closeAboutModal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div style="text-align: center; margin-bottom: 1rem;">
+        <img src="logo.png" alt="shopnest" style="height: 60px; width: auto;">
+      </div>
+      <h3>Welcome to shopnest! 🌟</h3>
+      <p>shopnest is your one-stop destination for the latest electronics, trendy clothing, stylish accessories, and comfortable footwear. We believe in providing high-quality products at affordable prices with a seamless shopping experience.</p>
+      <p>Founded in 2025, i am a passionate developer and designer who love creating beautiful and functional e-commerce platforms. This project is part of an internship showcase, demonstrating modern web technologies like HTML, CSS, JavaScript, and local storage.</p>
+      <p>Our mission is to make online shopping easy, secure, and enjoyable for everyone. Thank you for visiting!</p>
+      <p><i class="fas fa-heart" style="color: #ef4444;"></i> shopnest team</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Us Modal -->
+  <footer class="glass">
+    <i class="far fa-copyright"></i> internship project —   Designed and Developed By Mohammed Shadab
+    <footer class="glass">
+  <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+    <a href="#" id="footerAbout" style="color: #1e293b; text-decoration: none;">About Us</a>
+   <a href="https://wa.me/918085353685?text=Hi%20shopnest%2C%20I%20have%20a%20question." target="_blank" id="footerContact" style="color: #1e293b; text-decoration: none;">Contact Us</a>
+  </div>
+</footer>
+  </footer>
+
+  <!-- separate JS file -->
+  <script src="script.js"></script>
+  
+   <script src="script2.js"></script>
+</body>
+</html>
