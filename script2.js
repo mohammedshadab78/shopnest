@@ -288,15 +288,22 @@ closePaymentModal.addEventListener('click', () => {
 window.handleCheckout = handleCheckout;
 
 // ---------- Update dropdown content (with Profile link) ----------
+// ---------- Update dropdown content (with Profile link) ----------
 function updateUserDropdown() {
   if (!userDropdown) return;
   if (currentUser) {
     userDropdown.innerHTML = `
-      <div style="padding: 0.7rem 1rem; font-weight: 600; color: #8a0707; border-bottom: 1px solid #f1f5f9;">
-        HELLO ${currentUser.name}
+      <div class="user-greeting">
+        <i class="fas fa-user-circle"></i>
+        <span>Hi, <strong>${currentUser.name}</strong></span>
       </div>
-      <a href="#" id="profileLink">My Profile</a>
-      <a href="#" id="logoutBtn">Logout</a>
+      <div class="dropdown-divider"></div>
+      <a href="#" id="profileLink">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <a href="#" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
     `;
     document.getElementById('profileLink')?.addEventListener('click', (e) => {
       e.preventDefault();
@@ -304,11 +311,11 @@ function updateUserDropdown() {
       renderProfileModal();
     });
   } else {
-    userDropdown.innerHTML = `<a href="#" id="logoutBtn">Logout</a>`;
+    // When not logged in, we don't show dropdown (logout only, but this case won't occur)
+    userDropdown.innerHTML = `<a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>`;
   }
   attachLogoutListener();
 }
-
 // ---------- Attach logout event ----------
 function attachLogoutListener() {
   const newLogoutBtn = document.getElementById('logoutBtn');
